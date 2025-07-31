@@ -39,13 +39,13 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 2rem;
+		padding: 1rem;
 		overflow: hidden;
 		border-radius: inherit;
 		transition: opacity 0.26s ease-out;
-		border-radius: 28px;
+		border-radius: 32px;
 		filter: drop-shadow(-8px -10px 46px #0000005f);
-		backdrop-filter: brightness(1.1) blur(2px) url(#displacementFilter);
+		backdrop-filter: brightness(1.1) blur(3px) url(#displacementFilter);
 	}
 
 	.card::before {
