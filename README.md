@@ -13,12 +13,14 @@ A recreation of the iOS "liquid glass" media player effect, built with SvelteKit
 ## 🏗️ Tech Stack
 
 ### Frontend
+
 - **SvelteKit**: Modern web framework for the UI
 - **TypeScript**: Type-safe JavaScript
 - **Tailwind CSS**: Utility-first CSS framework for styling
 - **Glass Morphism Effects**: Custom CSS and SVG effects for the liquid glass appearance
 
 ### Backend Architecture
+
 - **n8n Workflow**: Handles Spotify API integration and data processing
 - **Redis Cache**: Prevents hitting Spotify's rate limits when handling multiple users
 - **Spotify Web API**: Sources live music data including track info, progress, and album art
@@ -28,6 +30,7 @@ The backend uses an n8n workflow to efficiently manage Spotify API calls and cac
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - A Chrome-based browser (Chrome, Edge, Opera, Brave, Vivaldi)
 - Spotify Premium account (for live data integration)
@@ -35,12 +38,14 @@ The backend uses an n8n workflow to efficiently manage Spotify API calls and cac
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/TechnoTalksDev/liquid-glass.git
 cd liquid-glass
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 # or
@@ -84,6 +89,7 @@ The application displays a beautiful glass morphism interface that mirrors your 
 ### Backend Integration
 
 The n8n workflow backend handles:
+
 - Spotify OAuth authentication
 - API rate limit management through Redis caching
 - Real-time data synchronization
@@ -102,7 +108,6 @@ This project requires a Chrome-based browser for optimal performance. The glass 
 ## 🤝 Contributing
 
 This project was built in a day as an experimental recreation of iOS liquid glass effects. If you encounter any quirks or have suggestions for improvements, feel free to open an issue or submit a pull request!
-
 
 ## 🙏 Acknowledgments
 

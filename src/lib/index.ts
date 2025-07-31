@@ -6,14 +6,14 @@ export { default as PillGeometry } from './components/ui/PillGeometry';
 
 // Glass style interface
 export interface GlassStyle {
-  depth?: number;
-  segments?: number;
-  radius?: number;
-  tint?: number | null;
-  roughness?: number;
-  transmission?: number;
-  reflectivity?: number;
-  ior?: number;
-  dispersion?: number;
-  thickness?: number;
+	depth?: number;
+	segments?: number;
+	radius?: number;
+	tint?: number | null;
+	roughness?: number;
+	transmission?: number;
+	reflectivity?: number;
+	ior?: number;
+	dispersion?: number;
+	thickness?: number;
 }

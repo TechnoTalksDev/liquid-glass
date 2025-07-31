@@ -23,7 +23,7 @@
 	let tgX = 0;
 	let tgY = 0;
 
-	$: tgX || tgY, updateGradient();
+	$: (tgX || tgY, updateGradient());
 
 	onMount(() => {
 		document.body.style.setProperty('--gradient-background-start', gradientBackgroundStart);
@@ -58,7 +58,7 @@
 
 <div
 	class={cn(
-		'relative left-0 top-0 h-96 w-[50vw] overflow-hidden bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))]',
+		'relative top-0 left-0 h-96 w-[50vw] overflow-hidden bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))]',
 		containerClassName
 	)}
 >
@@ -81,7 +81,7 @@
 		<div
 			class={cn(
 				`absolute [background:radial-gradient(circle_at_center,_var(--first-color)_0,_var(--first-color)_50%)_no-repeat]`,
-				`left-[calc(50%-var(--size)/2)] top-[calc(50%-var(--size)/2)] h-[var(--size)] w-[var(--size)] [mix-blend-mode:var(--blending-value)]`,
+				`top-[calc(50%-var(--size)/2)] left-[calc(50%-var(--size)/2)] h-[var(--size)] w-[var(--size)] [mix-blend-mode:var(--blending-value)]`,
 				`[transform-origin:center_center]`,
 				`animate-first`,
 				`opacity-100`
@@ -90,7 +90,7 @@
 		<div
 			class={cn(
 				`absolute [background:radial-gradient(circle_at_center,_rgba(var(--second-color),_0.8)_0,_rgba(var(--second-color),_0)_50%)_no-repeat]`,
-				`left-[calc(50%-var(--size)/2)] top-[calc(50%-var(--size)/2)] h-[var(--size)] w-[var(--size)] [mix-blend-mode:var(--blending-value)]`,
+				`top-[calc(50%-var(--size)/2)] left-[calc(50%-var(--size)/2)] h-[var(--size)] w-[var(--size)] [mix-blend-mode:var(--blending-value)]`,
 				`[transform-origin:calc(50%-400px)]`,
 				`animate-second`,
 				`opacity-100`
@@ -99,7 +99,7 @@
 		<div
 			class={cn(
 				`absolute [background:radial-gradient(circle_at_center,_rgba(var(--third-color),_0.8)_0,_rgba(var(--third-color),_0)_50%)_no-repeat]`,
-				`left-[calc(50%-var(--size)/2)] top-[calc(50%-var(--size)/2)] h-[var(--size)] w-[var(--size)] [mix-blend-mode:var(--blending-value)]`,
+				`top-[calc(50%-var(--size)/2)] left-[calc(50%-var(--size)/2)] h-[var(--size)] w-[var(--size)] [mix-blend-mode:var(--blending-value)]`,
 				`[transform-origin:calc(50%+400px)]`,
 				`animate-third`,
 				`opacity-100`
@@ -108,7 +108,7 @@
 		<div
 			class={cn(
 				`absolute [background:radial-gradient(circle_at_center,_rgba(var(--fourth-color),_0.8)_0,_rgba(var(--fourth-color),_0)_50%)_no-repeat]`,
-				`left-[calc(50%-var(--size)/2)] top-[calc(50%-var(--size)/2)] h-[var(--size)] w-[var(--size)] [mix-blend-mode:var(--blending-value)]`,
+				`top-[calc(50%-var(--size)/2)] left-[calc(50%-var(--size)/2)] h-[var(--size)] w-[var(--size)] [mix-blend-mode:var(--blending-value)]`,
 				`[transform-origin:calc(50%-200px)]`,
 				`animate-fourth`,
 				`opacity-70`
@@ -117,7 +117,7 @@
 		<div
 			class={cn(
 				`absolute [background:radial-gradient(circle_at_center,_rgba(var(--fifth-color),_0.8)_0,_rgba(var(--fifth-color),_0)_50%)_no-repeat]`,
-				`left-[calc(50%-var(--size)/2)] top-[calc(50%-var(--size)/2)] h-[var(--size)] w-[var(--size)] [mix-blend-mode:var(--blending-value)]`,
+				`top-[calc(50%-var(--size)/2)] left-[calc(50%-var(--size)/2)] h-[var(--size)] w-[var(--size)] [mix-blend-mode:var(--blending-value)]`,
 				`[transform-origin:calc(50%-800px)_calc(50%+800px)]`,
 				`animate-fifth`,
 				`opacity-100`
@@ -130,7 +130,7 @@
 				on:mousemove={handleMouseMove}
 				class={cn(
 					`absolute [background:radial-gradient(circle_at_center,_rgba(var(--pointer-color),_0.8)_0,_rgba(var(--pointer-color),_0)_50%)_no-repeat]`,
-					`-left-1/2 -top-1/2 h-full w-full [mix-blend-mode:var(--blending-value)]`,
+					`-top-1/2 -left-1/2 h-full w-full [mix-blend-mode:var(--blending-value)]`,
 					`opacity-70`
 				)}
 			></div>
