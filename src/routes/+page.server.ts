@@ -32,11 +32,23 @@ export const load: PageServerLoad = async ({ fetch }) => {
 
 			if (res.ok) {
 				console.log('Successfully fetched music data from n8n');
-				music = await res.json();
+				try {
+					music = await res.json();
+				} catch (jsonError) {
+					console.error('Error parsing JSON response:', jsonError);
+					console.error('Response was not valid JSON');
+					// Fallback to default music data
+					music = { name: null };
+				}
 			} else {
 				console.error(`n8n webhook error: ${res.status} ${res.statusText}`);
-				const errorText = await res.text();
-				console.error('Error response:', errorText);
+				// Don't try to parse error responses as JSON - they might be HTML
+				try {
+					const errorText = await res.text();
+					console.error('Error response:', errorText);
+				} catch (textError) {
+					console.error('Could not read error response text:', textError);
+				}
 				// Fallback to default music data
 				music = { name: null };
 			}

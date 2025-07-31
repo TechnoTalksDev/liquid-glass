@@ -58,7 +58,7 @@
 			const spotifyData = data.music;
 
 			// Check if music is currently playing and has item data
-			if (spotifyData.is_playing && spotifyData.item) {
+			if (spotifyData.is_playing && spotifyData.item && spotifyData.item.album && spotifyData.item.album.images && spotifyData.item.album.images.length > 0) {
 				song_name = spotifyData.item.name;
 				song_image = spotifyData.item.album.images[0].url;
 
@@ -69,20 +69,29 @@
 
 				// Build artists string from the artists array
 				artists = '';
-				spotifyData.item.artists.forEach((element: any) => {
-					artists += element.name + ', ';
-				});
-				artists = artists.slice(0, -2); // Remove trailing comma and space
-
-				// Get the dominant color from the album art
-				fac
-					.getColorAsync(spotifyData.item.album.images[0].url)
-					.then((color) => {
-						song_image_color = color.hex;
-					})
-					.catch((e) => {
-						console.log(e);
+				if (spotifyData.item.artists && Array.isArray(spotifyData.item.artists)) {
+					spotifyData.item.artists.forEach((element: any) => {
+						if (element && element.name) {
+							artists += element.name + ', ';
+						}
 					});
+					artists = artists.slice(0, -2); // Remove trailing comma and space
+				}
+
+				// Get the dominant color from the album art - only if we have a valid image URL
+				if (song_image && typeof song_image === 'string' && song_image.trim() !== '') {
+					fac
+						.getColorAsync(song_image)
+						.then((color) => {
+							song_image_color = color.hex;
+						})
+						.catch((e) => {
+							console.error('Error getting color from album art:', e);
+							song_image_color = '#000000'; // Fallback color
+						});
+				} else {
+					song_image_color = '#000000'; // Fallback color when no valid image
+				}
 			} else {
 				// Not playing or no item data
 				song_name = 'Not playing';
