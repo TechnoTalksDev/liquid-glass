@@ -28,6 +28,7 @@
 	let artists: string;
 	let song_duration_ms: number;
 	let song_progress_ms: number;
+	let local_progress_ms: number = 0; // Local progress that updates every second
 	let is_playing: boolean;
 	let volume: number = Math.random() * 100; // Default volume
 
@@ -65,6 +66,10 @@
 				// Extract playback information
 				song_duration_ms = spotifyData.item.duration_ms;
 				song_progress_ms = spotifyData.progress_ms;
+				
+				// Sync local progress with fetched data
+				local_progress_ms = spotifyData.progress_ms;
+				
 				is_playing = spotifyData.is_playing;
 
 				// Build artists string from the artists array
@@ -101,6 +106,7 @@
 				song_image_color = '#000000';
 				song_duration_ms = 0;
 				song_progress_ms = 0;
+				local_progress_ms = 0;
 				is_playing = false;
 			}
 		} else {
@@ -112,6 +118,7 @@
 			song_image_color = '#000000';
 			song_duration_ms = 0;
 			song_progress_ms = 0;
+			local_progress_ms = 0;
 			is_playing = false;
 		}
 	}
@@ -139,7 +146,8 @@
 		});
 		formattedTime = now.toLocaleString('en-US', { timeStyle: 'short' });
 
-		const interval = setInterval(() => {
+		// Data refresh interval (every 2.5 seconds)
+		const dataRefreshInterval = setInterval(() => {
 			//console.log("Refreshing data")
 			// Use invalidateAll() for server-side load functions
 			invalidateAll();
@@ -155,8 +163,22 @@
 			formattedTime = now.toLocaleString('en-US', { timeStyle: 'short' });
 		}, 2500);
 
+		// Progress bar interval (every 1 second)
+		const progressInterval = setInterval(() => {
+			// Only increment if music is playing and we have valid duration
+			if (is_playing && song_duration_ms > 0) {
+				local_progress_ms += 1000; // Increment by 1 second (1000ms)
+				
+				// Prevent progress from exceeding song duration
+				if (local_progress_ms > song_duration_ms) {
+					local_progress_ms = song_duration_ms;
+				}
+			}
+		}, 1000);
+
 		return () => {
-			clearInterval(interval);
+			clearInterval(dataRefreshInterval);
+			clearInterval(progressInterval);
 		};
 	});
 
@@ -220,13 +242,13 @@
 						<div
 							class="h-full rounded-full bg-white transition-all duration-300"
 							style="width: {song_duration_ms > 0
-								? (song_progress_ms / song_duration_ms) * 100
+								? (local_progress_ms / song_duration_ms) * 100
 								: 0}%"
 						></div>
 					</div>
 					<div class="flex justify-between text-xs text-white/60">
-						<span>{formatTime(song_progress_ms)}</span>
-						<span>-{formatTime(song_duration_ms - song_progress_ms)}</span>
+						<span>{formatTime(local_progress_ms)}</span>
+						<span>-{formatTime(song_duration_ms - local_progress_ms)}</span>
 					</div>
 				</div>
 
