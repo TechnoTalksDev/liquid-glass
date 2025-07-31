@@ -47,9 +47,10 @@
 		const isOpera = /OPR/.test(userAgent);
 		const isBrave = /Brave/.test(userAgent);
 		const isVivaldi = /Vivaldi/.test(userAgent);
+		const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
 
-		// Chrome-based browsers include Chrome, Edge (Chromium), Opera, Brave, Vivaldi, etc.
-		return isChrome || isEdge || isOpera || isBrave || isVivaldi;
+		// Chrome-based browsers and Safari include Chrome, Edge (Chromium), Opera, Brave, Vivaldi, Safari, etc.
+		return isChrome || isEdge || isOpera || isBrave || isVivaldi || isSafari;
 	}
 
 	function update_music_data() {
