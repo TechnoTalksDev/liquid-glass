@@ -14,7 +14,7 @@
 		<feDisplacementMap
 			in="SourceGraphic"
 			in2="turbulence"
-			scale="200"
+			scale="300"
 			xChannelSelector="R"
 			yChannelSelector="G"
 		/>
