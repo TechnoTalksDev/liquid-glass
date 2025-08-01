@@ -24,6 +24,7 @@
 		"@tailwindcss/typography": "^0.5.15",
 		"@tailwindcss/vite": "^4.0.0",
 		"@types/html2canvas": "^1.0.0",
+		"@types/three": "^0.178.1",
 		"clsx": "^2.1.1",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
@@ -44,12 +45,20 @@
 	},
 	"dependencies": {
 		"@neodrag/svelte": "^2.3.3",
+		"@specy/liquid-glass-react": "^1.0.2",
 		"@threlte/core": "^8.1.3",
 		"@threlte/extras": "^9.4.2",
 		"@types/node": "^24.1.0",
+		"@types/react": "^19.1.9",
+		"@types/react-dom": "^19.1.7",
+		"@vitejs/plugin-react": "^4.7.0",
 		"fast-average-color": "^9.5.0",
 		"html2canvas": "^1.4.1",
+		"html2canvas-pro": "^1.5.11",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
 		"svelte-motion": "^0.12.2",
-		"three": "^0.178.0"
+		"sveltris": "^0.1.0",
+		"three": "^0.179.0"
 	}
 }
