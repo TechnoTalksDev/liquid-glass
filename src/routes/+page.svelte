@@ -225,7 +225,7 @@
 						id="song-image"
 						style="box-shadow: 0px 0px 100px {song_image_color};"
 						src={song_image}
-						class="h-full w-full rounded-2xl object-cover"
+						class="h-full w-full rounded-2xl object-cover transition-all duration-500"
 						alt="Track"
 					/>
 				</div>
@@ -332,9 +332,9 @@
 	{#if showInfoModal}
 		<div
 			class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50"
-			on:click={() => (showInfoModal = false)}
+			on:click={(event) => { if (event.target === event.currentTarget) showInfoModal = false; }}
 		>
-			<div class="mx-4 w-fit max-w-md" on:click|stopPropagation>
+			<div class="mx-4 w-fit max-w-md">
 				<GlassCard>
 					<div class="space-y-4 p-6">
 						<div class="flex items-center justify-between">

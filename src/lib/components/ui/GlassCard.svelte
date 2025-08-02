@@ -55,6 +55,7 @@
 		z-index: 0;
 		overflow: hidden;
 		border-radius: 28px;
+		pointer-events: none;
 		-webkit-box-shadow:
 			inset 2px 2px 0px -2px rgba(255, 255, 255, 0.7),
 			inset 0 0 3px 1px rgba(255, 255, 255, 0.7);
