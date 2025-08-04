@@ -5,6 +5,7 @@
 	import { FastAverageColor } from 'fast-average-color';
 	import GlassCard from '$lib/components/ui/GlassCard.svelte';
 	import { SkipBack, Play, Pause, SkipForward, Volume2, Info } from '@lucide/svelte';
+	import GlassElement from '$lib/components/ui/GlassElement/GlassElement.svelte';
 
 	const fac = new FastAverageColor();
 
@@ -59,17 +60,23 @@
 			const spotifyData = data.music;
 
 			// Check if music is currently playing and has item data
-			if (spotifyData.is_playing && spotifyData.item && spotifyData.item.album && spotifyData.item.album.images && spotifyData.item.album.images.length > 0) {
+			if (
+				spotifyData.is_playing &&
+				spotifyData.item &&
+				spotifyData.item.album &&
+				spotifyData.item.album.images &&
+				spotifyData.item.album.images.length > 0
+			) {
 				song_name = spotifyData.item.name;
 				song_image = spotifyData.item.album.images[0].url;
 
 				// Extract playback information
 				song_duration_ms = spotifyData.item.duration_ms;
 				song_progress_ms = spotifyData.progress_ms;
-				
+
 				// Sync local progress with fetched data
 				local_progress_ms = spotifyData.progress_ms;
-				
+
 				is_playing = spotifyData.is_playing;
 
 				// Build artists string from the artists array
@@ -168,7 +175,7 @@
 			// Only increment if music is playing and we have valid duration
 			if (is_playing && song_duration_ms > 0) {
 				local_progress_ms += 1000; // Increment by 1 second (1000ms)
-				
+
 				// Prevent progress from exceeding song duration
 				if (local_progress_ms > song_duration_ms) {
 					local_progress_ms = song_duration_ms;
@@ -283,6 +290,17 @@
 				</div>
 			</div>
 		</GlassCard>
+
+		<GlassElement
+			width={200}
+			height={200}
+			radius={50}
+			depth={10}
+			blur={1.5}
+			chromaticAberration={5}
+			debug={false}
+			strength={100}
+		/>
 	</div>
 	<!-- <div class="w-fit mb-4">
     <GlassCard>
@@ -332,7 +350,9 @@
 	{#if showInfoModal}
 		<div
 			class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50"
-			on:click={(event) => { if (event.target === event.currentTarget) showInfoModal = false; }}
+			on:click={(event) => {
+				if (event.target === event.currentTarget) showInfoModal = false;
+			}}
 		>
 			<div class="mx-4 w-fit max-w-md">
 				<GlassCard>
@@ -379,8 +399,8 @@
 								target="_blank">GitHub</a
 							>
 							if you want to take a peek. The backend is built using an n8n workflow and Redis cache
-							to avoid hitting Spotify’s rate limits when handling multiple users. Threw this
-							together in a day, so if you run into any quirks... just pretend you didn’t :)
+							to avoid hitting Spotify’s rate limits when handling multiple users. Threw this together
+							in a day, so if you run into any quirks... just pretend you didn’t :)
 							<br /><br />
 
 							Here's the
