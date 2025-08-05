@@ -15,8 +15,48 @@
 
 	export let data: PageData;
 
+	// --- Spotify API Types ---
+	interface SpotifyArtist {
+		name: string;
+	}
+
+	interface SpotifyAlbumImage {
+		url: string;
+	}
+
+	interface SpotifyAlbum {
+		images: SpotifyAlbumImage[];
+	}
+
+	interface SpotifyTrack {
+		name: string;
+		album: SpotifyAlbum;
+		artists: SpotifyArtist[];
+		duration_ms: number;
+	}
+
+	interface SpotifyCurrentlyPlaying {
+		is_playing: boolean;
+		item: SpotifyTrack;
+		progress_ms: number;
+	}
+
+	function isSpotifyCurrentlyPlaying(obj: any): obj is SpotifyCurrentlyPlaying {
+		return (
+			obj &&
+			typeof obj === 'object' &&
+			typeof obj.is_playing === 'boolean' &&
+			obj.item &&
+			typeof obj.item === 'object' &&
+			typeof obj.item.name === 'string' &&
+			obj.item.album &&
+			Array.isArray(obj.item.album.images) &&
+			typeof obj.progress_ms === 'number'
+		);
+	}
+
 	// Reactive statement to update music data when server data changes
-	$: if (data.music) {
+	$: if (data.music !== undefined) {
 		console.dir(data.music, { depth: null });
 		update_music_data();
 	}
@@ -55,8 +95,8 @@
 	}
 
 	function update_music_data() {
-		// Check if data.music exists and is an object
-		if (data.music && typeof data.music === 'object') {
+		// Use type guard to check if data.music is a valid SpotifyCurrentlyPlaying object
+		if (isSpotifyCurrentlyPlaying(data.music)) {
 			const spotifyData = data.music;
 
 			// Check if music is currently playing and has item data
@@ -64,7 +104,7 @@
 				spotifyData.is_playing &&
 				spotifyData.item &&
 				spotifyData.item.album &&
-				spotifyData.item.album.images &&
+				Array.isArray(spotifyData.item.album.images) &&
 				spotifyData.item.album.images.length > 0
 			) {
 				song_name = spotifyData.item.name;
@@ -81,8 +121,8 @@
 
 				// Build artists string from the artists array
 				artists = '';
-				if (spotifyData.item.artists && Array.isArray(spotifyData.item.artists)) {
-					spotifyData.item.artists.forEach((element: any) => {
+				if (Array.isArray(spotifyData.item.artists)) {
+					spotifyData.item.artists.forEach((element) => {
 						if (element && element.name) {
 							artists += element.name + ', ';
 						}
@@ -117,7 +157,7 @@
 				is_playing = false;
 			}
 		} else {
-			// No music data available
+			// No music data available or not in expected format
 			song_name = 'Not playing';
 			song_image =
 				'https://upload.wikimedia.org/wikipedia/commons/2/24/Transparent_Square_Tiles_Texture.png';
@@ -153,9 +193,8 @@
 		});
 		formattedTime = now.toLocaleString('en-US', { timeStyle: 'short' });
 
-		// Data refresh interval (every 2.5 seconds)
+		// Data refresh interval
 		const dataRefreshInterval = setInterval(() => {
-			//console.log("Refreshing data")
 			// Use invalidateAll() for server-side load functions
 			invalidateAll();
 
@@ -249,10 +288,20 @@
 				</div>
 
 				<!-- Song Info -->
-<div class="z-50 w-full space-y-1 text-center">
-  <h2 class="truncate text-lg font-semibold text-white" style="text-shadow: 0 1px 6px rgba(255,255,255,0.25), 0 0.5px 1.5px rgba(255,255,255,0.18);">{song_name}</h2>
-  <p class="truncate text-sm text-white/70" style="text-shadow: 0 1px 6px rgba(255,255,255,0.18), 0 0.5px 1.5px rgba(255,255,255,0.12);">{artists}</p>
-</div>
+				<div class="z-50 w-full space-y-1 text-center">
+					<h2
+						class="truncate text-lg font-semibold text-white"
+						style="text-shadow: 0 1px 6px rgba(255,255,255,0.25), 0 0.5px 1.5px rgba(255,255,255,0.18);"
+					>
+						{song_name}
+					</h2>
+					<p
+						class="truncate text-sm text-white/70"
+						style="text-shadow: 0 1px 6px rgba(255,255,255,0.18), 0 0.5px 1.5px rgba(255,255,255,0.12);"
+					>
+						{artists}
+					</p>
+				</div>
 
 				<!-- Progress Bar -->
 				<div class="w-full space-y-2">
@@ -302,56 +351,38 @@
 			</div>
 		</GlassElement>
 	</div>
-	<!-- <div class="w-fit mb-4">
-	<GlassCard>
-		<div class="flex flex-col items-center justify-center gap-4 z-50">
-		  <h1 class="text-6xl font-bold text-white opacity-80">Liquid Glass</h1>
-		  <button
-			class="px-4 py-2 rounded bg-white/80 text-black font-semibold shadow "
-			on:click={() => useVideoBg = !useVideoBg}
-		  >
-			{useVideoBg ? 'Use Wallpaper Background' : 'Use Video Background'}
-		  </button>
-		  <p class="text-white/50">Inspiration from <a href="https://github.com/polidario/Frontend-Projects/tree/main/liquid-glass-vue" target="_blank"><span class="text-white/90">polidario</span></a></p>
-		</div>
-	</GlassCard>
-  </div>
-
-	<div class="w-fit" use:draggable={{ bounds: 'parent' }}>
-		<GlassCard>
-			<img
-				alt="funny logo"
-				class="aspect-square w-[5rem]"
-				src="https://static.vecteezy.com/system/resources/previews/027/127/473/non_2x/microsoft-logo-microsoft-icon-transparent-free-png.png"
-			/>
-		</GlassCard>
-	</div>
-
-	<div class="w-fit" style="position:fixed; left:{dvdX}px; top:{dvdY}px; width:{dvdWidth}px; height:{dvdHeight}px; pointer-events:none;">
-		<GlassCard>
-			<img
-				alt="funny logo"
-				class="aspect-square w-[5rem]"
-				src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
-			/>
-		</GlassCard>
-	</div> -->
 
 	<!-- Floating Action Button -->
-	<div class="fixed right-6 bottom-6 z-50" on:click={() => (showInfoModal = true)}>
+	<button
+		class="fixed right-6 bottom-6 z-50 focus:outline-none"
+		aria-label="Show information modal"
+		on:click={() => (showInfoModal = true)}
+		on:keydown={(e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				showInfoModal = true;
+			}
+		}}
+		type="button"
+	>
 		<GlassCard>
-			<button class="p-0 text-white/80 transition-colors hover:text-white">
+			<span class="p-0 text-white/80 transition-colors hover:text-white">
 				<Info size={32} />
-			</button>
+			</span>
 		</GlassCard>
-	</div>
+	</button>
 
 	<!-- Information Modal -->
 	{#if showInfoModal}
 		<div
 			class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50"
+			role="dialog"
+			aria-modal="true"
+			tabindex="0"
 			on:click={(event) => {
 				if (event.target === event.currentTarget) showInfoModal = false;
+			}}
+			on:keydown={(event) => {
+				if (event.key === 'Escape') showInfoModal = false;
 			}}
 		>
 			<div class="mx-4 w-fit max-w-md">

@@ -1,7 +1,7 @@
-
 # Hi from the creator
+
 I was incredibly fascinated by the iOS 26 “liquid glass” update on my iPhone and
-wanted to recreate the effect. I stumbled upon 
+wanted to recreate the effect. I stumbled upon
 [this video](https://www.youtube.com/watch?v=Cv8zFvM8fEk)
 and decided to see how far I could push it. <br /><br />
 
@@ -19,7 +19,6 @@ to avoid hitting Spotify’s rate limits when handling multiple users. Threw thi
 together in a day, so if you run into any quirks... just pretend you didn’t :)
 
 ![n8n workflow](static/n8n-workflow.png)
-
 
 Here's the
 [video in the background](https://www.youtube.com/watch?v=hOgVAYpHPCc) btw

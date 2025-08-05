@@ -22,7 +22,7 @@
 				radius,
 				depth,
 				strength,
-				chromaticAberration,
+				chromaticAberration
 			});
 		}
 	}

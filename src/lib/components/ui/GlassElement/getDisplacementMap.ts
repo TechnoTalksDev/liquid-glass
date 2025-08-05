@@ -1,7 +1,7 @@
 // All credit goes to the original author
 // https://medium.com/ekino-france/liquid-glass-in-css-and-svg-839985fcb88d
 
-import type { DisplacementOptions } from "./getDisplacementFilter";
+import type { DisplacementOptions } from './getDisplacementFilter';
 
 /**
  * Creating the displacement map that is used by feDisplacementMap filter.
@@ -9,13 +9,13 @@ import type { DisplacementOptions } from "./getDisplacementFilter";
  * This is why they start and end in the middle of the angle curve.
  */
 export const getDisplacementMap = ({
-  height,
-  width,
-  radius,
-  depth,
-}: Omit<DisplacementOptions, "chromaticAberration" | "strength">) =>
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(`<svg height="${height}" width="${width}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+	height,
+	width,
+	radius,
+	depth
+}: Omit<DisplacementOptions, 'chromaticAberration' | 'strength'>) =>
+	'data:image/svg+xml;utf8,' +
+	encodeURIComponent(`<svg height="${height}" width="${width}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
     <style>
         .mix { mix-blend-mode: screen; }
     </style>
