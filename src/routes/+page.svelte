@@ -168,7 +168,7 @@
 				day: 'numeric'
 			});
 			formattedTime = now.toLocaleString('en-US', { timeStyle: 'short' });
-		}, 2500);
+		}, 4000);
 
 		// Progress bar interval (every 1 second)
 		const progressInterval = setInterval(() => {
@@ -224,8 +224,19 @@
 	{/if}
 
 	<div class="w-fit">
-		<GlassCard>
-			<div class="flex w-[350px] flex-col items-center justify-center gap-4 p-6">
+		<GlassElement
+			width={400}
+			height={600}
+			radius={30}
+			depth={10}
+			blur={1.5}
+			chromaticAberration={10}
+			debug={false}
+			strength={100}
+		>
+			<div
+				class="flex h-full min-h-0 w-[350px] flex-grow flex-col items-center justify-center gap-4 p-6"
+			>
 				<!-- Album Art -->
 				<div class="relative h-[300px] w-[300px] flex-shrink-0">
 					<img
@@ -238,10 +249,10 @@
 				</div>
 
 				<!-- Song Info -->
-				<div class="z-50 w-full space-y-1 text-center">
-					<h2 class="truncate text-lg font-semibold text-white">{song_name}</h2>
-					<p class="truncate text-sm text-white/70">{artists}</p>
-				</div>
+<div class="z-50 w-full space-y-1 text-center">
+  <h2 class="truncate text-lg font-semibold text-white" style="text-shadow: 0 1px 6px rgba(255,255,255,0.25), 0 0.5px 1.5px rgba(255,255,255,0.18);">{song_name}</h2>
+  <p class="truncate text-sm text-white/70" style="text-shadow: 0 1px 6px rgba(255,255,255,0.18), 0 0.5px 1.5px rgba(255,255,255,0.12);">{artists}</p>
+</div>
 
 				<!-- Progress Bar -->
 				<div class="w-full space-y-2">
@@ -289,32 +300,21 @@
 					<Volume2 size={16} class="text-white/40" />
 				</div>
 			</div>
-		</GlassCard>
-
-		<GlassElement
-			width={200}
-			height={200}
-			radius={50}
-			depth={10}
-			blur={1.5}
-			chromaticAberration={5}
-			debug={false}
-			strength={100}
-		/>
+		</GlassElement>
 	</div>
 	<!-- <div class="w-fit mb-4">
-    <GlassCard>
-        <div class="flex flex-col items-center justify-center gap-4 z-50">
-          <h1 class="text-6xl font-bold text-white opacity-80">Liquid Glass</h1>
-          <button
-            class="px-4 py-2 rounded bg-white/80 text-black font-semibold shadow "
-            on:click={() => useVideoBg = !useVideoBg}
-          >
-            {useVideoBg ? 'Use Wallpaper Background' : 'Use Video Background'}
-          </button>
-          <p class="text-white/50">Inspiration from <a href="https://github.com/polidario/Frontend-Projects/tree/main/liquid-glass-vue" target="_blank"><span class="text-white/90">polidario</span></a></p>
-        </div>
-    </GlassCard>
+	<GlassCard>
+		<div class="flex flex-col items-center justify-center gap-4 z-50">
+		  <h1 class="text-6xl font-bold text-white opacity-80">Liquid Glass</h1>
+		  <button
+			class="px-4 py-2 rounded bg-white/80 text-black font-semibold shadow "
+			on:click={() => useVideoBg = !useVideoBg}
+		  >
+			{useVideoBg ? 'Use Wallpaper Background' : 'Use Video Background'}
+		  </button>
+		  <p class="text-white/50">Inspiration from <a href="https://github.com/polidario/Frontend-Projects/tree/main/liquid-glass-vue" target="_blank"><span class="text-white/90">polidario</span></a></p>
+		</div>
+	</GlassCard>
   </div>
 
 	<div class="w-fit" use:draggable={{ bounds: 'parent' }}>
