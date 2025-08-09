@@ -14,8 +14,8 @@ export const load: PageServerLoad = async ({ fetch }) => {
 		// Use Buffer for proper encoding in Node.js server environment
 		const credentials = Buffer.from(credentialsString, 'utf8').toString('base64');
 
-		console.log('Username:', username);
-		console.log('Password length:', password.length);
+		//console.log('Username:', username);
+		//console.log('Password length:', password.length);
 
 		try {
 			let res = await fetch(
