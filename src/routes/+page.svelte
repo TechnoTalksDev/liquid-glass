@@ -241,6 +241,7 @@
 			? `${song_name}${artists ? ` - ${artists}` : ''} | Liquid Glass`
 			: 'Liquid Glass - Not Playing'}</title
 	>
+	<link rel="icon" href="{song_image ?? "%sveltekit.assets%/play.jpg"}" />
 </svelte:head>
 
 <div
